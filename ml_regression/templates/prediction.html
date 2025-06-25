@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fire Weather Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #03050b;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #eaecf9;
+    }
+
+    .container {
+      background-color: #121318;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      max-width: 800px;
+      border: 1px solid #9299df;
+    }
+
+    h2 {
+      text-align: center;
+      color: #eaecf9;
+      margin-bottom: 24px;
+      font-size: 28px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #9299df;
+      font-size: 16px;
+    }
+
+    input[type="text"] {
+      padding: 12px 14px;
+      border: 2px solid #88286b;
+      border-radius: 12px;
+      font-size: 15px;
+      background-color: #1c1e24;
+      color: #eaecf9;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]::placeholder {
+      color: #9299df;
+    }
+
+    input[type="text"]:focus {
+      border-color: #c84362;
+      outline: none;
+      background-color: #252830;
+    }
+
+    .form-footer {
+      grid-column: span 3;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #88286b;
+      color: #eaecf9;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      background-color: #c84362;
+    }
+
+    @media (max-width: 768px) {
+      .form-footer {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Fire Weather Data</h2>
+    <form action = "{{ url_for('prediction_datapoint') }}", method = "post">
+      <div class="form-group">
+        <label for="temperature">Temperature</label>
+        <input type="text" id="temperature" name="temperature" placeholder="e.g., 32.5°C">
+      </div>
+
+      <div class="form-group">
+        <label for="rh">RH</label>
+        <input type="text" id="rh" name="rh" placeholder="e.g., 70%">
+      </div>
+
+      <div class="form-group">
+        <label for="ws">Ws</label>
+        <input type="text" id="ws" name="ws" placeholder="e.g., 15 km/h">
+      </div>
+
+      <div class="form-group">
+        <label for="rain">Rain</label>
+        <input type="text" id="rain" name="rain" placeholder="e.g., 5 mm">
+      </div>
+
+      <div class="form-group">
+        <label for="ffmc">FFMC</label>
+        <input type="text" id="ffmc" name="ffmc" placeholder="e.g., 85">
+      </div>
+
+      <div class="form-group">
+        <label for="dmc">DMC</label>
+        <input type="text" id="dmc" name="dmc" placeholder="e.g., 30">
+      </div>
+
+      <div class="form-group">
+        <label for="dc">DC</label>
+        <input type="text" id="dc" name="dc" placeholder="e.g., 250">
+      </div>
+
+      <div class="form-group">
+        <label for="isi">ISI</label>
+        <input type="text" id="isi" name="isi" placeholder="e.g., 3.5">
+      </div>
+
+      <div class="form-group">
+        <label for="bui">BUI</label>
+        <input type="text" id="bui" name="bui" placeholder="e.g., 60">
+      </div>
+      <!-- <div class="form-group">
+        <label for="classes">classes</label>
+        <input type="text" id="classes" name="classes" placeholder="e.g., 60">
+      </div>
+      <div class="form-group">
+        <label for="region">region</label>
+        <input type="text" id="region" name="region" placeholder="e.g., 60">
+      </div> -->
+
+      <div class="form-footer">
+        <button type="submit">Submit</button>
+      </div>
+      {% if results %}
+        <div class="form-footer">
+            <h2>Result: {{ results }}</h2>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</body>
+</html>
